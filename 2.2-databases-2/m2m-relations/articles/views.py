@@ -1,14 +1,13 @@
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView
+from .models import Article
 
-from articles.models import Article
+class ArticleListView(ListView):
+    model = Article
+    template_name = 'articles/news.html'  # Указан правильный путь к шаблону
+    context_object_name = 'object_list'  # Соответствует шаблону
+    ordering = '-published_at'  # Сортировка по дате публикации
 
-
-def articles_list(request):
-    template = 'articles/news.html'
-    context = {}
-
-    # используйте этот параметр для упорядочивания результатов
-    # https://docs.djangoproject.com/en/3.1/ref/models/querysets/#django.db.models.query.QuerySet.order_by
-    ordering = '-published_at'
-
-    return render(request, template, context)
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'articles/article_detail.html'  # Шаблон для детальной страницы
+    context_object_name = 'article'

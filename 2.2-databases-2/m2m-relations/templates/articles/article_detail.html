@@ -1,0 +1,21 @@
+{% extends "articles/base.html" %}
+{% load static %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <article class="col-lg-8">
+      <h1>{{ article.title }}</h1>
+      {% if article.image %}
+        <img class="card-img-top" src="{% get_media_prefix %}{{ article.image }}" alt="{{ article.title }}">
+      {% endif %}
+      <p>{{ article.text }}</p>
+      <p>Дата публикации: {{ article.published_at }}</p>
+      <h3>Теги:</h3>
+      {% for scope in article.scopes.all %}
+        <span class="badge {% if scope.is_main %}badge-primary{% else %}badge-secondary{% endif %}">{{ scope.tag.name }}</span>
+      {% endfor %}
+    </article>
+  </div>
+{% endblock %}

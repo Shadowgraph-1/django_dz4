@@ -1,7 +1,9 @@
 from django.urls import path
+from .views import ArticleListView, ArticleDetailView
 
-from articles.views import articles_list
+app_name = 'articles'  # Обновлено с 'news' на 'articles'
 
 urlpatterns = [
-    path('', articles_list, name='articles'),
+    path('', ArticleListView.as_view(), name='article_list'),  # Список статей (использует news.html)
+    path('<int:pk>/', ArticleDetailView.as_view(), name='article_detail'),  # Детальная страница статьи
 ]
